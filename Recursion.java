@@ -4,7 +4,10 @@ public class Recursion{
         System.out.println(factorial(5));
         printNumbers(8);
         System.out.println();
-        printNumbers1(1, 8);
+        printNumbers1(8);
+        System.out.println();
+        System.out.println(printSum(5));
+        System.out.println(fib(6));
     }
 
     // factorial of a number
@@ -20,9 +23,25 @@ public class Recursion{
         return;
     }
     // print numbers in increasing order
-    static void printNumbers1(int i, int n){
-        if(i>n) return;
-        System.out.print(i+" ");
-        printNumbers1(i+1, n);
+    static void printNumbers1(int n){
+        if(n == 1){
+            System.out.print(n+" ");
+            return;
+        }
+        printNumbers1(n-1);
+        System.out.print(n + " ");
+    }
+    // print sum of first n natural numbers
+    static int printSum(int n){ 
+        if(n == 1) return 1;
+        int fnm1 = printSum(n-1);
+        int fn = n+fnm1;
+        return fn;
+    }
+    //print fibonacci number
+    static int fib(int n){
+        if(n == 1 || n == 0) return n;
+        int fibn = fib(n-1)+fib(n-2);
+        return fibn;
     }
 }
