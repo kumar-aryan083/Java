@@ -1,6 +1,22 @@
 import java.util.*;
 
 public class Array {
+    
+    public static void main(String args[]){
+        // Scanner sc = new Scanner(System.in);
+        int[] arr = {10, 5, 2, 7, 1, 9};
+        // printArray(arr);
+        // System.out.println("Max Element : "+largestElement(arr));
+        // System.out.println("Min Element : "+smallestElement(arr));
+        
+        // System.out.println("Element found at index: "+linearSearch(arr, 83));
+        // System.out.println("Element found at index: "+binarySearch(arr, 83));
+        
+        // allPair(arr);
+        // allSubarrays(arr);
+        // subarraySum(arr);
+        System.out.println(longestSubarrayLength(arr, 15));
+    }
 
     public static void printArray(int arr[]){
         for(int i=0; i<arr.length; i++){
@@ -85,22 +101,21 @@ public class Array {
         System.out.println("Maximum subarray sum : "+maxi);
         System.out.println("Minimum subarray sum : "+mini);
     }
-    
-    public static void main(String args[]){
-        Scanner sc = new Scanner(System.in);
-        int arr[] = new int[5];
-        for(int i=0; i<arr.length; i++){
-            arr[i] = sc.nextInt();
+    static int longestSubarrayLength(int[] arr, int k){
+        int n = arr.length;
+        int left = 0, right = 0;
+        int sum = arr[0], ans = 0;
+        while(right<n){
+            while(left<=right && sum>k){
+                sum-= arr[left];
+                left++;
+            }
+            if(sum == k){
+                ans = Math.max(ans, right-left+1);
+            }
+            right++;
+            if(right<n) sum+=arr[right];
         }
-        // printArray(arr);
-        // System.out.println("Max Element : "+largestElement(arr));
-        // System.out.println("Min Element : "+smallestElement(arr));
-        
-        // System.out.println("Element found at index: "+linearSearch(arr, 83));
-        // System.out.println("Element found at index: "+binarySearch(arr, 83));
-        
-        // allPair(arr);
-        allSubarrays(arr);
-        subarraySum(arr);
+        return ans;
     }
 }
