@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Recursion{
     public static void main(String[] args) {
         //---------------------------------------------------------------------------
@@ -28,6 +30,39 @@ public class Recursion{
         //---------------------------------------------------------------------------
 
         System.out.println("Hello Recursion part 2");
+        int[] arr = {1, 2, 3, 4, 5};
+        RecursionPart2 obj = new RecursionPart2();
+        List<List<Integer>> ans = obj.subsets(arr);
+
+        
+        for(int i = 0; i<ans.size(); i++){
+            for(int j=0; j<ans.get(i).size(); j++){
+                System.out.print(ans.get(i).get(j)+" ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+class RecursionPart2{
+    // Program to find all possible subsets or subsequences of an array.
+    static List<List<Integer>> subsets(int[] arr){
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> temp = new ArrayList<>();
+        createSubsets(arr, 0, ans, temp);
+        return ans;
+    }
+    static void createSubsets(int[] arr, int i, List<List<Integer>> ans, List<Integer> res){
+        if(i == arr.length){
+            ans.add(new ArrayList<>(res));
+            return;
+        }
+        // pick a element
+        res.add(arr[i]);
+        createSubsets(arr, i+1, ans, res);
+        // not pick a element
+        res.remove(res.size()-1);
+        createSubsets(arr, i+1, ans, res);
     }
 }
 
