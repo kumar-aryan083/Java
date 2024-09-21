@@ -34,7 +34,7 @@ public class Recursion{
         RecursionPart2 obj = new RecursionPart2();
         // List<List<Integer>> ans = obj.subsets(arr);
         // List<List<Integer>> ans = obj.combinationSum(arr, 4);
-        // List<List<Integer>> ans = obj.combinationSum2(arr, 8);
+        List<List<Integer>> ans = obj.combinationSum2(arr, 8);
 
         
         for(int i = 0; i<ans.size(); i++){
