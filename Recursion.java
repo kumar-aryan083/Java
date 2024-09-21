@@ -30,9 +30,11 @@ public class Recursion{
         //---------------------------------------------------------------------------
 
         System.out.println("Hello Recursion part 2");
-        int[] arr = {1, 2, 3, 4, 5};
+        int[] arr = {1, 2, 3};
         RecursionPart2 obj = new RecursionPart2();
-        List<List<Integer>> ans = obj.subsets(arr);
+        // List<List<Integer>> ans = obj.subsets(arr);
+        // List<List<Integer>> ans = obj.combinationSum(arr, 4);
+        // List<List<Integer>> ans = obj.combinationSum2(arr, 8);
 
         
         for(int i = 0; i<ans.size(); i++){
@@ -63,6 +65,54 @@ class RecursionPart2{
         // not pick a element
         res.remove(res.size()-1);
         createSubsets(arr, i+1, ans, res);
+    }
+
+    // list of all unique combinations of candidates where the chosen numbers sum to target. You may return the combinations in any order.
+    // The same number may be chosen from candidates an unlimited number of times. Two combinations are unique if the 
+    // frequency of at least one of the chosen numbers is different.
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> ds = new ArrayList<>();
+        createCombination(0, candidates, target, ds, ans);
+        return ans;
+    }
+    static void createCombination(int i, int[] candidates, int target, List<Integer> ds, List<List<Integer>> ans){
+        if(i == candidates.length){
+            if(target == 0){
+                ans.add(new ArrayList<>(ds));
+            }
+            return;
+        }
+        if(candidates[i]<=target){
+            ds.add(candidates[i]);
+            createCombination(i, candidates, target-candidates[i], ds, ans);
+            ds.remove(ds.size()-1);
+        }
+        createCombination(i+1, candidates, target, ds, ans);
+    }
+
+    // find all unique combinations in candidates where the candidate numbers sum to target. 
+    // Each number in candidates may only be used once in the combination.
+    // Note: The solution set must not contain duplicate combinations and should be in sorted order.
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> ds = new ArrayList<>();
+        Arrays.sort(candidates);
+        findCombinations2(0, candidates, target, ds, ans);
+        return ans;
+    }
+    static void findCombinations2(int ind, int[] arr, int target, List<Integer> ds, List<List<Integer>> ans){
+        if(target == 0){
+            ans.add(new ArrayList<>(ds));
+            return;
+        }
+        for(int i=ind; i<arr.length; i++){
+            if(i>ind && arr[i] == arr[i-1]) continue;
+            if(arr[i]>target) return;
+            ds.add(arr[i]);
+            findCombinations2(i+1, arr, target-arr[i], ds, ans);
+            ds.remove(ds.size()-1);
+        }
     }
 }
 
